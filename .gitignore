@@ -1,0 +1,9 @@
+./idea
+.vscode
+*.pyc
+_pycache_/
+*env/
+*.db
+*.sqlite
+*.sqlite3
+*.tmp
