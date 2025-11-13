@@ -31,6 +31,10 @@ def about():
 def quotes():
     return jsonify(quotes_data)
 
+@app.route("/quotes/count")
+def quotes_count():
+    return {"count": len(quotes_data)}
+
 @app.route('/quote/<int:quote_id>')
 def get_quote_text(quote_id):
     quote = next((q for q in quotes_data if q["id"] == quote_id), None)
