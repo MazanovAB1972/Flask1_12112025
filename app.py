@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, render_template
-
+import random
 app=Flask(__name__)
 about_me ={
     "surname": "Мазанов",
@@ -34,6 +34,12 @@ def quotes():
 @app.route("/quotes/count")
 def quotes_count():
     return {"count": len(quotes_data)}
+
+@app.route("/quotes/random")
+def quotes_random():
+    quote = random.choice(quotes_data)
+    return jsonify(quote["text"])
+
 
 @app.route('/quote/<int:quote_id>')
 def get_quote_text(quote_id):
