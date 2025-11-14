@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template,request
 import random
 app=Flask(__name__)
 about_me ={
@@ -40,6 +40,16 @@ def quotes_random():
     quote = random.choice(quotes_data)
     return jsonify(quote["text"])
 
+@app.route("/quotes", methods=['POST'])
+def create_quote():
+  new_data = request.get_json()
+  i=0
+  for quote in quotes_data:
+    if quote["id"]>i:
+      i=quote["id"]
+  new_data["id"]=i+1
+  print("data = ", new_data)
+  return jsonify(new_data), 201
 
 @app.route('/quote/<int:quote_id>')
 def get_quote_text(quote_id):
