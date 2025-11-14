@@ -60,6 +60,15 @@ def delete_quote(quote_id: int):
       quotes_data.remove(quote)
       return jsonify({"message": f"Цитата с номером {quote_id} удалена"}),200
   return jsonify({"message": f"Цитата с номером {quote_id} не найдена"}), 400
+
+@app.route("/quotes/<int:quote_id>", methods=['PUT'])
+def put_quote(quote_id: int):
+  upd_data = request.get_json()
+  for quote in quotes_data:
+    if quote["id"]==quote_id:
+      quote["text"]= upd_data["text"]
+      return jsonify(quote),200
+  return jsonify({"message": f"Цитата с номером {quote_id} не найдена"}), 400
   
 @app.route('/quote/<int:quote_id>')
 def get_quote_text(quote_id):
