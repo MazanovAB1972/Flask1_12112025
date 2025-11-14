@@ -40,6 +40,7 @@ def quotes_random():
     quote = random.choice(quotes_data)
     return jsonify(quote["text"])
 
+
 @app.route("/quotes", methods=['POST'])
 def create_quote():
   new_data = request.get_json()
@@ -52,6 +53,14 @@ def create_quote():
   print("data = ", new_data)
   return jsonify(new_data), 201
 
+@app.route("/quotes/<int:quote_id>", methods=['DELETE'])
+def delete_quote(quote_id: int):
+  for quote in quotes_data:
+    if quote["id"]==quote_id:
+      quotes_data.remove(quote)
+      return jsonify({"message": f"Цитата с номером {quote_id} удалена"}),200
+  return jsonify({"message": f"Цитата с номером {quote_id} не найдена"}), 400
+  
 @app.route('/quote/<int:quote_id>')
 def get_quote_text(quote_id):
     quote = next((q for q in quotes_data if q["id"] == quote_id), None)
