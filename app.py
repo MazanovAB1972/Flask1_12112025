@@ -48,6 +48,7 @@ def create_quote():
     if quote["id"]>i:
       i=quote["id"]
   new_data["id"]=i+1
+  quotes_data.append(new_data)
   print("data = ", new_data)
   return jsonify(new_data), 201
 
